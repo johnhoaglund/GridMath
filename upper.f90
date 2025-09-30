@@ -1,9 +1,9 @@
-C Subroutine by Dave Pollard
-C ***************************** UPPER **********************************
-C
+! Subroutine by Dave Pollard
+! ***************************** UPPER **********************************
+!
       subroutine upper (cin)
  
-c        Upper-cases character string cin
+!        Upper-cases character string cin
  
       character*(*) cin
       
@@ -12,8 +12,8 @@ c        Upper-cases character string cin
       ishif = ichar('A') - ichar('a')
       
       do i=1,len(cin)
-        if (ichar(cin(i:i)).ge.ia .and. ichar(cin(i:i)).le.iz)
-     *    cin(i:i) = char (ichar(cin(i:i)) + ishif)
+        if (ichar(cin(i:i)).ge.ia .and. ichar(cin(i:i)).le.iz) &
+          cin(i:i) = char (ichar(cin(i:i)) + ishif)
       enddo
       
       return

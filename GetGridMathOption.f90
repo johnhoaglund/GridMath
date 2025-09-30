@@ -1,8 +1,8 @@
       Subroutine GetGridMathOption(nz,mo)
       integer nz, mo
-c variables written to gridmath.txt
+! variables written to gridmath.txt
       real constant,scalar, scalbak
-c option 12 gradmag, gradazi, node x, node y, point xw, point yw, elev      
+! option 12 gradmag, gradazi, node x, node y, point xw, point yw, elev      
       real dip
       real pi
       real gradmag, gradazi
@@ -10,19 +10,19 @@ c option 12 gradmag, gradazi, node x, node y, point xw, point yw, elev
       real xw, yw, elev       
       character*80 outfile
       integer l1,l2
-c option 13 number of subdividers
+! option 13 number of subdividers
       integer nsd 
-c set pi
+! set pi
       pi = 3.14159265359                  
-c get nz
+! get nz
       write (*,*) 'Enter the number of Surfer grid files to read, nz'
       write (*,*) 'for Z mathematical processing options. '
       write (*,*) 'Some math options may require more than one grid.'
       write (*,*) 
       write (*,*) 'For the following options, enter 1 for nz'
       write (*,*) '-- Add a constant (+ or -) to modfify input grid.'
-      write (*,*) '-- Multiply a grid times scalar x to modify input',
-     $                ' grid.'  
+      write (*,*) '-- Multiply a grid times scalar x to modify input', &
+' grid.'  
       write (*,*) '   ( x > 1.0 or x < 1.0 )'
       write (*,*) '-- Zero negative values.'      
       write (*,*) '-- Smooth a grid using a gradient threshold value'
@@ -35,8 +35,8 @@ c get nz
       write (*,*) '-- Subtract one grid from another, create new.'
       write (*,*) '     example:  create isopach from two surfaces.'
       write (*,*) '-- Add one grid to another, create new '
-      write (*,*) '     example:  create new surface by adding isopach',      
-     $                 ' to surface.  ' 
+      write (*,*) '     example:  create new surface by adding isopach',       &
+' to surface.  ' 
       write (*,*) '-- Re-scale thickness between 2 surfaces, '
       write (*,*) '   Re-subtract thickness from upper surface, and '
       write (*,*) '   Output both new bottom surface and new isopach.'
@@ -54,14 +54,14 @@ c get nz
       write (*,*) 
       write (*,*) 'Enter nz (1 or 2; see above): '
       read(*,*) nz
-c get mo 
+! get mo 
       write (*,*) 'Select an option for processing.'
       write (*,*)                       
       if (nz.eq.1) then
       write (*,*) ' Single grid options'
       write (*,*) '1  Add a constant (+ or -) to modfify input grid.'
-      write (*,*) '2  Multiply a grid times scalar x to modify input',
-     $                ' grid.'  
+      write (*,*) '2  Multiply a grid times scalar x to modify input', &
+' grid.'  
       write (*,*) '   ( x > 1.0 or x < 1.0 )'
       write (*,*) '8  Zero negative values.'      
       write (*,*) '9  Smooth a grid using a gradient threshold value'
@@ -77,8 +77,8 @@ c get mo
       write (*,*) '3  Subtract one grid from another, create new.'
       write (*,*) '     example:  create isopach from two surfaces.'
       write (*,*) '4  Add one grid to another, create new '
-      write (*,*) '     example:  create new surface by adding isopach',      
-     $                 ' to surface.  ' 
+      write (*,*) '     example:  create new surface by adding isopach',       &
+' to surface.  ' 
       write (*,*) '5  Re-scale thickness between 2 surfaces, '
       write (*,*) '   Re-subtract thickness from upper surface, and '
       write (*,*) '   Output both new bottom surface and new isopach.'
@@ -97,11 +97,11 @@ c get mo
       write (*,*) 'Enter option number: ' 
       endif  
       read(*,*) mo
-c open file to write options (gridmath.txt)
+! open file to write options (gridmath.txt)
       open (9,file = 'gridmath.txt', status = 'unknown') 
 
-C SINGLE GRID OPTIONS                  
-c addition of constant option 1     
+! SINGLE GRID OPTIONS                  
+! addition of constant option 1     
       if (mo.eq.1) then
         write (9,*) mo
         do k = 1,nz
@@ -112,7 +112,7 @@ c addition of constant option 1
         enddo
         close(9)
       endif
-c multiplication of scalar option 2     
+! multiplication of scalar option 2     
       if (mo.eq.2) then
         write (9,*) mo
         do k = 1,nz
@@ -124,12 +124,12 @@ c multiplication of scalar option 2
         enddo
         close(9)
       endif
-c grid negative zeroing, option 8
+! grid negative zeroing, option 8
       if (mo.eq.8) then
         write (9,*) mo
         close(9)
       endif       
-c smooth a grid using gradient threshold, option 9
+! smooth a grid using gradient threshold, option 9
       if (mo.eq.9) then
         write (9,*) mo
         do k = 1,nz
@@ -140,7 +140,7 @@ c smooth a grid using gradient threshold, option 9
         enddo
         close(9)
       endif
-c smooth a grid using step threshold, option 11
+! smooth a grid using step threshold, option 11
       if (mo.eq.11) then
         write (9,*) mo
         do k = 1,nz
@@ -154,7 +154,7 @@ c smooth a grid using step threshold, option 11
         enddo
         close(9)
       endif
-c create a planar surface from an elevation and dip and dip direction, option 12           
+! create a planar surface from an elevation and dip and dip direction, option 12           
       if (mo.eq.12) then
         write (9,*) mo
         write (*,*) 'Enter xw, yw, and elev at the point (or well).'
@@ -171,9 +171,9 @@ c create a planar surface from an elevation and dip and dip direction, option 12
         write (*,*) 'dip direction perpendicular to strike.' 
         write (*,*) '[This is the direction opposite (negative)'
         write (*,*) 'to the surface gradient.]'
-c read dip azimuth direction        
+! read dip azimuth direction        
         read (*,*) gradazi
-c gradient azimuth is the other direction        
+! gradient azimuth is the other direction        
         gradazi = gradazi - 180
         write (9,*) gradazi
         write (*,*) 'Enter a Surfer filename to output result.'
@@ -181,8 +181,8 @@ c gradient azimuth is the other direction
         write (9,'(a)') outfile        
         close(9) 
       endif
-C DOUBLE GRID OPTIONS (all double grid options will separately output znew)         
-c grid subtraction option 3
+! DOUBLE GRID OPTIONS (all double grid options will separately output znew)         
+! grid subtraction option 3
       if (mo.eq.3) then
         write (9,*) mo
         write (*,*) 'Enter the layer number to subtract from.'
@@ -196,7 +196,7 @@ c grid subtraction option 3
         write (9,'(a)') outfile
         close(9)
       endif
-c grid addition option 4      
+! grid addition option 4      
       if (mo.eq.4) then
         write (9,*) mo
         write (*,*) 'Enter the layer number to add to.'
@@ -210,7 +210,7 @@ c grid addition option 4
         write (9,'(a)') outfile
         close(9) 
       endif      
-c grid scale thickness option 5         
+! grid scale thickness option 5         
       if (mo.eq.5) then
         write (9,*) mo
         write (*,*) 'Enter the upper surface number.'
@@ -227,7 +227,7 @@ c grid scale thickness option 5
         write (9,'(a)') outfile
         close(9) 
       endif  
-c grid multiplication option 6      
+! grid multiplication option 6      
       if (mo.eq.6) then
         write (9,*) mo
         write (*,*) 'Enter the layer number to multiply by'
@@ -241,7 +241,7 @@ c grid multiplication option 6
         write (9,'(a)') outfile
         close(9) 
       endif 
-c grid division option 7      
+! grid division option 7      
       if (mo.eq.7) then
         write (9,*) mo
         write (*,*) 'Enter the layer number to divide'
@@ -255,7 +255,7 @@ c grid division option 7
         write (9,'(a)') outfile
         close(9) 
       endif      
-c raise bottom to pinch any layer less than thickness threshold option 10         
+! raise bottom to pinch any layer less than thickness threshold option 10         
       if (mo.eq.10) then
         write (9,*) mo
         write (*,*) 'Enter the upper surface number.'
@@ -292,7 +292,7 @@ c raise bottom to pinch any layer less than thickness threshold option 10
         write (9,'(a)') outfile
         close(9) 
       endif                 
-c evenly divide a layer thickness between two surfaces into n+1 using n intermediate layers, option 13                                         
+! evenly divide a layer thickness between two surfaces into n+1 using n intermediate layers, option 13                                         
       return
       end      
 

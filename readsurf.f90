@@ -1,46 +1,46 @@
-            subroutine readsurf(zm2d,nx,ny,iary,
-     $      minx,maxx,miny,maxy,minz,maxz,delx,dely,infile)
+            subroutine readsurf(zm2d,nx,ny,iary, &
+minx,maxx,miny,maxy,minz,maxz,delx,dely,infile)
             character*4 binas
             character*80 infile
             integer nx,ny,iary
             real zm2d(nx,ny)
             real minx,maxx,miny,maxy,minz,maxz
             real delx,dely            
-C READ PREVIOUSLY OPENED SURFER GRID FILE (iary)
-c test for extension (from readreal subroutine) not needed here
-c          if ((extn.eq.'grd').or.(extn.eq.'GRD')) then
-c            open (iary, file=infile,status = 'unknown')
-C read a matrix formatted as a surfer grid
+! READ PREVIOUSLY OPENED SURFER GRID FILE (iary)
+! test for extension (from readreal subroutine) not needed here
+!          if ((extn.eq.'grd').or.(extn.eq.'GRD')) then
+!            open (iary, file=infile,status = 'unknown')
+! read a matrix formatted as a surfer grid
             read(iary,'(a)') binas
             if ((binas.eq.'dsbb').or.(binas.eq.'DSBB')) then
               close(iary)
-              open (iary, file=infile, form = 'binary', 
-     $         status = 'unknown')
+              open (iary, file=infile, form = 'binary',  &
+status = 'unknown')
               read(iary) binas
-c              write(*,*) 're-read binas as ',binas
-c              write(*,*) 'read first line skipping binas'
+!              write(*,*) 're-read binas as ',binas
+!              write(*,*) 'read first line skipping binas'
               read(iary) nxs
-c              write(*,*) 'nxs = ',nxs
+!              write(*,*) 'nxs = ',nxs
               read(iary) nys
-c              write(*,*) 'nys = ',nys
+!              write(*,*) 'nys = ',nys
               read(iary) xlo
-c              write(*,*) 'xlo = ',xlo
+!              write(*,*) 'xlo = ',xlo
               read(iary) xhi
-c              write(*,*) 'xhi = ',xhi
+!              write(*,*) 'xhi = ',xhi
               read(iary) ylo
-c              write(*,*) 'ylo = ',ylo
+!              write(*,*) 'ylo = ',ylo
               read(iary) yhi
-c              write(*,*) 'yhi = ',yhi
+!              write(*,*) 'yhi = ',yhi
               read(iary) zlo
-c              write(*,*) 'zlo = ',zlo
+!              write(*,*) 'zlo = ',zlo
               read(iary) zhi 
-c              write(*,*) 'zhi = ',zhi
-C note surfer grids are stored with increasing y from top down            
+!              write(*,*) 'zhi = ',zhi
+! note surfer grids are stored with increasing y from top down            
               do j = ny,1,-1
                 read(iary) (zm2d(i,j), i = 1,nx)
               enddo
-c              nx = nxs
-c              ny = nys
+!              nx = nxs
+!              ny = nys
               minx = real(xlo)
               maxx = real(xhi)
               miny = real(ylo)
@@ -51,12 +51,12 @@ c              ny = nys
               dely = (maxy-miny)/(ny-1)
             endif
             if ((binas.eq.'dsaa').or.(binas.eq.'DSAA')) then
-c skip nx ny read                        
+! skip nx ny read                        
               read(iary,*) 
               read(iary,*) minx,maxx
               read(iary,*) miny,maxy
               read(iary,*) minz,maxz
-C note surfer grids are stored with increasing y from top down
+! note surfer grids are stored with increasing y from top down
               do j = ny,1,-1
                 read(iary,*) (zm2d(i,j), i = 1,nx)
               enddo
@@ -64,8 +64,8 @@ C note surfer grids are stored with increasing y from top down
               dely = (maxy-miny)/(ny-1)              
             endif
             close(iary)
-c endif not needed (from readreal extension test)            
-c          endif            
+! endif not needed (from readreal extension test)            
+!          endif            
             return
             end
 

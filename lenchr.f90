@@ -1,5 +1,5 @@
       integer function lenchr(ch)
-c     Returns length of character variable ch, less trailing blanks
+!     Returns length of character variable ch, less trailing blanks
       character*(*) ch
       do i = len(ch),1,-1
         lenchr = i
